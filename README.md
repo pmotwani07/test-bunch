@@ -44,17 +44,17 @@ Configures Terraform providers for Kubernetes and Helm.
 
 Ensures Helm charts and Kubernetes resources are deployed to the correct cluster (Minikube in this setup).
 
-Example:
-
+```hcl
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+config_path = "~/.kube/config"
 }
 
 provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
+kubernetes {
+config_path = "~/.kube/config"
 }
+}
+```
 
 ### 3️⃣ Main Terraform Configuration (main.tf)
 
@@ -70,13 +70,14 @@ Nginx (custom Helm chart)
 
 Fluent Bit: Installed manually due to Helm provider constraints with nested values and Minikube cluster size.
 
-Manual installation:
+''' Manual installation:
 
 cd /terraform/modules/fluent-bit
 helm install fluent-bit fluent/fluent-bit \
   --namespace logging \
   --create-namespace \
   -f values.yaml
+  '''
 
 ### 4️⃣ Nginx Helm Chart (nginx-chart/)
 
@@ -109,7 +110,7 @@ Deployment Instructions
 
 Start Kubernetes cluster (Minikube or other, min 4 CPUs & 8 GB RAM):
 
-minikube start
+''' minikube start
 kubectl config current-context
 
 
@@ -137,15 +138,17 @@ Verify deployments:
 kubectl get all -n monitoring
 kubectl get all -n logging
 kubectl get all -n default
+'''
 
 
 ## Install Fluent Bit manually (if not deployed via Terraform):
 
-helm repo add fluent https://fluent.github.io/helm-charts
+'''helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
 helm install fluent-bit fluent/fluent-bit \
   --namespace logging --create-namespace \
   -f values.yaml
+  '''
 
 
 ## Local Testing Instructions:
@@ -154,7 +157,7 @@ Test deployed services via Kubernetes port forwarding.
 
 Example: Prometheus
 
-kubectl port-forward svc/prometheus-server 9090:80
+'''kubectl port-forward svc/prometheus-server 9090:80'''
 
 ## Notes / Important Points
 
