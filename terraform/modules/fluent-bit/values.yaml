@@ -1,0 +1,12 @@
+backend:
+  type: es
+  es:
+    host: "elasticsearch-master.monitoring.svc.cluster.local"
+    port: 9200
+    http_user: "elastic"
+    http_pass: "eoL6Wg643VxRnmx9%"
+    tls: true
+    tls.verify: false
+
+serviceAccount:
+  create: true

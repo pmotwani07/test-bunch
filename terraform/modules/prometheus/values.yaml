@@ -1,0 +1,5 @@
+# default values, you can customize if needed
+server:
+  service:
+    type: NodePort
+    nodePort: 30900
