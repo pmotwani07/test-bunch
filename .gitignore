@@ -12,10 +12,8 @@ terraform.tfvars.json
 charts/
 *.tgz
 
-# Docker files
 *.env
 *.dockerignore
-Dockerfile*
 docker-compose*.yml
 
 # OS / Editor / IDE files
