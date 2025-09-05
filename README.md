@@ -1,19 +1,19 @@
-Main Components
+## Main Components
 
-Nginx Dockerfile
+## Nginx Dockerfile
 Docker image built from this Dockerfile is uploaded to my personal Docker repository for testing purposes.
 In production scenarios, the image can be fetched from AWS ECR.
 
-Provider Configuration
+## Provider Configuration
 Contains provider config for Kubernetes providers and Terraform/Helm Providers.
 
-Terraform Configuration (main.tf)
+## Terraform Configuration (main.tf)
 Defines Terraform modules as required.
 
-Nginx Helm Chart
+## Nginx Helm Chart
 Custom Helm chart for deploying Nginx.
 
-Terraform Directory for Additional Charts
+## Terraform Directory for Additional Charts
 Contains Terraform configurations to deploy additional Helm charts fetched from public repositories, including:
 
 Prometheus
@@ -22,13 +22,13 @@ ELK Stack (Elastic Search and Kibana)
 
 Fluent Bit (manual installation on Minikube due to resource/dependency constraints; commands shared in further steps)
 
-Repository Structure
+## Repository Structure
 
 Root level: provider file, main file, Nginx chart, .gitignore
 
 Terraform directory: modules as required
 
-1️⃣ Nginx Dockerfile
+### 1️⃣ Nginx Dockerfile
 
 Builds a custom Nginx image for the web application.
 
@@ -38,7 +38,7 @@ In production, the image can be pulled from ECR or any private registry.
 
 nginx.conf is included for custom server configuration.
 
-2️⃣ Terraform Provider Configuration (provider.tf)
+### 2️⃣ Terraform Provider Configuration (provider.tf)
 
 Configures Terraform providers for Kubernetes and Helm.
 
@@ -56,7 +56,7 @@ provider "helm" {
   }
 }
 
-3️⃣ Main Terraform Configuration (main.tf)
+### 3️⃣ Main Terraform Configuration (main.tf)
 
 Deploys Helm releases for:
 
@@ -78,7 +78,7 @@ helm install fluent-bit fluent/fluent-bit \
   --create-namespace \
   -f values.yaml
 
-4️⃣ Nginx Helm Chart (nginx-chart/)
+### 4️⃣ Nginx Helm Chart (nginx-chart/)
 
 Custom Helm chart for deploying the Nginx web application.
 
@@ -90,7 +90,7 @@ Deployment manifest with image and environment variables
 
 Service to expose Nginx
 
-5️⃣ Terraform Modules (modules/)
+### 5️⃣ Terraform Modules (modules/)
 
 Each module contains Helm or Terraform configurations for a specific component:
 
@@ -139,7 +139,7 @@ kubectl get all -n logging
 kubectl get all -n default
 
 
-Install Fluent Bit manually (if not deployed via Terraform):
+## Install Fluent Bit manually (if not deployed via Terraform):
 
 helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
@@ -148,7 +148,7 @@ helm install fluent-bit fluent/fluent-bit \
   -f values.yaml
 
 
-Local Testing Instructions:
+## Local Testing Instructions:
 
 Test deployed services via Kubernetes port forwarding.
 
@@ -156,7 +156,7 @@ Example: Prometheus
 
 kubectl port-forward svc/prometheus-server 9090:80
 
-Notes / Important Points
+## Notes / Important Points
 
 Docker image must be pushed to Docker Hub or private registry before deploying Nginx.
 
