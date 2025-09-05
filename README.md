@@ -9,11 +9,11 @@ In production scenarios, the image can be fetched from AWS ECR.
 
 ## Provider Configuration
 
-Contains configuration files for cloud and Kubernetes providers.
+Contains provider config for Kubernetes providers and Terraform/Helm Providers.
 
 ## Terraform Configuration (main.tf)
 
-Defines infrastructure resources and deployment settings.
+Defines Terraform modules as required.
 
 ## Nginx Helm Chart
 
@@ -25,29 +25,15 @@ Contains Terraform configurations to deploy additional Helm charts fetched from 
 
 Prometheus
 
-ELK Stack
+ELK Stack ( Elastic Search and Kibana) 
 
-Fluent Bit  - Mentioned here but for me it was not working on minikube due to resource containers and dependencies, so installed manually  
+Fluent Bit  - Mentioned here but for me it was not working on minikube due to resource containers and dependencies, so installed it  manually  ( commands shared in further steps )
 
 ## Repository Structure
 
-test-bunch/
-├── Dockerfile
-├── README.md
-├── nginx.conf
-├── terraform/
-│ ├── main.tf
-│ ├── provider.tf
-│ ├── terraform.tfstate
-│ ├── nginx-chart/
-│ └── modules/
-│ ├── elasticsearch/
-│ ├── kibana/
-│ ├── prometheus/
-│ ├── fluent-bit/
-│ └── nginx/
+Root level - provider file , main file , nginx chart , gitignore file 
 
----
+Terraform directory - modules as required 
 
 ## 1️⃣ Nginx Dockerfile
 
@@ -79,14 +65,16 @@ provider "helm" {
 ---------------------------------------------------------------------------
 
 3️⃣ Main Terraform Configuration (main.tf)
-The entry point for deploying the stack.
+
 
 Deploys Helm releases for:
 
 Elasticsearch (official Helm chart) - latest from offical documentation.
 https://artifacthub.io/packages/helm/elastic/elasticsearch
 
-Kibana (visualization for ES)
+Same for Kibana and Prometheus
+
+ Kibana (visualization for ES)
 
 Prometheus (metrics collection)
 
@@ -176,7 +164,7 @@ helm install fluent-bit fluent/fluent-bit \
 
   Prometheus
 
-  kubectl port-forward svc/prometheus-server 9090:9090
+  kubectl port-forward svc/prometheus-server 9090:80
 
 
 
