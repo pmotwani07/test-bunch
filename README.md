@@ -70,14 +70,14 @@ Nginx (custom Helm chart)
 
 Fluent Bit: Installed manually due to Helm provider constraints with nested values and Minikube cluster size.
 
-''' Manual installation:
+'''Manual installation:
 
 cd /terraform/modules/fluent-bit
 helm install fluent-bit fluent/fluent-bit \
   --namespace logging \
   --create-namespace \
   -f values.yaml
-  '''
+'''
 
 ### 4️⃣ Nginx Helm Chart (nginx-chart/)
 
