@@ -1,5 +1,47 @@
 ## Main Components
 
+### 🔧 Prerequisites
+
+Before running Terraform to install Nginx, Elasticsearch, Kibana, and Prometheus on Minikube, make sure the following steps are done:
+```
+1. Minikube
+
+Install Minikube
+.
+
+Start Minikube with enough resources (Elasticsearch & Kibana are heavy):
+
+minikube start --driver=docker --cpus=4 --memory=8192mb --disk-size=20g
+
+
+2. Helm
+
+Install Helm
+
+
+Add required repositories manually before Terraform can fetch the charts:
+
+helm repo add elastic https://helm.elastic.co
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+
+If you skip this, Terraform will error with chart not found.
+
+3. Terraform
+
+Install Terraform
+
+
+Ensure the Helm provider is configured to use your Minikube context:
+
+kubectl config current-context
+
+
+Should output minikube.
+```
+
+
 ## Nginx Dockerfile
 Docker image built from this Dockerfile is uploaded to my personal Docker repository for testing purposes.
 In production scenarios, the image can be fetched from AWS ECR.
