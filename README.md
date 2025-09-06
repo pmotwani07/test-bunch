@@ -1,5 +1,3 @@
-## Main Components
-
 ### 🔧 Prerequisites
 
 Before running Terraform to install Nginx, Elasticsearch, Kibana, and Prometheus on Minikube, make sure the following steps are done:
@@ -41,6 +39,7 @@ kubectl config current-context
 Should output minikube.
 ```
 
+## Main Components
 
 ## Nginx Dockerfile
 Docker image built from this Dockerfile is uploaded to my personal Docker repository for testing purposes.
@@ -191,7 +190,24 @@ helm install fluent-bit fluent/fluent-bit \
   --namespace logging --create-namespace \
   -f values.yaml
 ```
+If you notice the fluent Bit values.yaml file , you will see password for Elastic search , the Elasticsearch cluster user name and password are required by fluent bit agents to forward logs to the ES cluster . Here is how I have fetched the credentials and hardcoded in values file for test purposes ( but in production or real time we can fetch the passwords via secrets manager or any relevant secret valut ) 
 
+``` Elasticsearch credentials
+
+Elasticsearch creates a default user elastic with a generated password.
+
+Fetch the password after Elasticsearch starts:
+
+kubectl get secret elasticsearch-master-credentials -n monitoring -o go-template='{{.data.password | base64decode}}'
+
+```
+
+
+Save this password — it will be required later for:
+
+Kibana to connect to Elasticsearch.
+
+Fluent Bit or any logging pipeline to push logs into Elasticsearch.
 
 ## Local Testing Instructions:
 
